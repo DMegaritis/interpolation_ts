@@ -7,20 +7,40 @@ from typing import Iterable
 
 class Interpolation:
     """
-    Align any number of time-series datasets to a uniform time grid using PCHIP interpolation.
-    Each DataFrame must have a 'time' column.
-    Times should have at least nanosecond precision and preferably 9 digits (up to 9 fractional digits).
-    If your data have less precision, they will be rounded to 9 digits but some precision will be lost.
-    Extra digits beyond 9 will be truncated automatically.
+     Align multiple time-series datasets to a uniform time grid using PCHIP interpolation.
 
-    Args:
-        None (instance has no state)
+     This class allows for multiple input DataFrames, each of which must have a 'time' column.
+     The 'time' column should ideally have nanosecond precision (up to 9 fractional digits).
+     Timestamps with fewer than 9 digits will be padded with zeros, and extra digits beyond 9
+     will be truncated automatically.
 
-    Usage:
-        interp = Interpolation()
-        aligned_dfs = interp.interpolate([df1, df2, df3], sampling_rate_hz=100, overlap_windows=True)
-        # aligned_dfs is a tuple (df1_aligned, df2_aligned, df3_aligned)
-    """
+     The interpolation process uses a Piecewise Cubic Hermite Interpolating Polynomial (PCHIP)
+     for each column (excluding 'time'). After computing the PCHIP interpolation, the original
+     data values are injected at the nearest grid points where timestamps match, preserving
+     the original samples as much as possible.
+
+     Features:
+     - Any number or name of data columns is allowed; only the 'time' column is used for interpolation.
+     - Two modes of handling alignment:
+         1. `overlap_windows=True`: Crops all DataFrames to the overlapping time window across datasets.
+         2. Default (`overlap_windows=False`): Fills zeros outside the range of each original dataset to
+            produce DataFrames of equal length.
+     - Automatically removes non-increasing timestamps within each DataFrame.
+     - Returns interpolated DataFrames with the same column order across all inputs.
+     - As a result, the output DataFrames have the same shape and can be concatenated/compared easily.
+
+     Attributes:
+         None (class is stateless; all operations are performed in the `interpolate` method)
+
+     Usage:
+         interp = Interpolation()
+         aligned_dfs = interp.interpolate([df1, df2, df3], sampling_rate_hz=100, overlap_windows=True)
+         # Returns a tuple of interpolated DataFrames: (df1_aligned, df2_aligned, df3_aligned)
+
+     Notes:
+     - Despite injecting the original values at the nearest grid point, the PCHIP interpolation might introduce interpolated values outside the original range,
+      effectively smothing some peaks but signal morphology is not affected. This is mitigated by injecting original values at the nearest grid point but there might still be some distortion.
+     """
 
     def __init__(self):
         pass
