@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 # Path to the parent directory of your script
-parent_path = Path(__file__).resolve().parent.parent  # goes from examples/script -> project root
+parent_path = Path(__file__).resolve().parent.parent
 
 # Path to the data folder
 data_path = parent_path / "examples" / "data"
@@ -23,7 +23,7 @@ plot_interp([df1, df2, df3, df4], labels=['df1', 'df2', 'df3', 'df4'])
 
 # Call interpolation
 dfs = [df1, df2, df3, df4]
-interpolated = Interpolation().interpolate(dfs, overlap_windows=True)
+interpolated = Interpolation().interpolate(dfs, overlap_windows=False)
 
 df1_interpolated, df2_interpolated, df3_interpolated, df4_interpolated = interpolated
 
