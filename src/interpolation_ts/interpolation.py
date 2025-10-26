@@ -8,6 +8,10 @@ from typing import Iterable
 class Interpolation:
     """
     Align any number of time-series datasets to a uniform time grid using PCHIP interpolation.
+    Each DataFrame must have a 'time' column.
+    Times should have at least nanosecond precision and preferably 9 digits (up to 9 fractional digits).
+    If your data have less precision, they will be rounded to 9 digits but some precision will be lost.
+    Extra digits beyond 9 will be truncated automatically.
 
     Args:
         None (instance has no state)
