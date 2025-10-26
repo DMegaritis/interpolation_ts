@@ -15,7 +15,7 @@ This repository provides tools for **aligning and interpolating time-series data
 
 ---
 
-### 2. Cropping / Original Alignment (`AlignOriginalsOnly` class)
+### 2. Cropping / Original Alignment (`AlignData` class)
 - Aligns datasets **by cropping to their overlapping time interval**.
 - Preserves all original timestamps and values **without interpolation or resampling**.
 - Automatically removes non-increasing timestamps.
