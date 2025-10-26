@@ -2,7 +2,7 @@ import pandas as pd
 import warnings
 from typing import Iterable
 
-class AlignOriginalsOnly:
+class AlignData:
     """
     Align multiple time-series datasets by cropping to their overlapping time interval,
     while preserving each dataset's original timestamps and values.
@@ -18,11 +18,6 @@ class AlignOriginalsOnly:
     - Non-increasing timestamps are automatically removed.
     - Outputs share the same column names as the inputs.
     - If there is no temporal overlap, datasets are returned un-cropped with a warning.
-
-    Usage:
-        aligner = AlignOriginalsOnly()
-        aligned_dfs = aligner.align([df1, df2, df3])
-        # Returns a tuple of cropped DataFrames with original timestamps preserved.
     """
 
     def __init__(self):

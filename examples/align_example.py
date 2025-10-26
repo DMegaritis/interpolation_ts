@@ -3,7 +3,7 @@ import pandas as pd
 from utils.ploter import plot_interp
 
 # Assuming you saved the AlignOriginalsOnly class as align_ts.py
-from align_ts.align import AlignOriginalsOnly
+from align_ts.align import AlignData
 
 # Path to the parent directory of your script
 parent_path = Path(__file__).resolve().parent.parent
@@ -24,7 +24,7 @@ plot_interp([df1, df2, df3, df4], labels=['df1', 'df2', 'df3', 'df4'])
 
 # Align data using original timestamps only
 dfs = [df1, df2, df3, df4]
-aligned = AlignOriginalsOnly().align(dfs)
+aligned = AlignData().align(dfs)
 
 df1_aligned, df2_aligned, df3_aligned, df4_aligned = aligned
 
