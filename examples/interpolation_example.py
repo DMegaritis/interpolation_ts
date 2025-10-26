@@ -1,8 +1,6 @@
 from interpolation_ts.interpolation import Interpolation
 import pandas as pd
-import os
 from utils.ploter import plot_interp
-import matplotlib.pyplot as plt
 from pathlib import Path
 
 # Path to the parent directory of your script
